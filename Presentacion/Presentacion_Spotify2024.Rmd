@@ -1,0 +1,72 @@
+---
+title: "Presentación – Spotify 2024"
+author: "Santiago Arboleda"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+## Objetivos del Proyecto
+
+- Cuantificar el consumo musical y la popularidad de canciones en plataformas digitales.
+- Explorar la relación entre streams de Spotify y vistas de YouTube.
+- Sintetizar indicadores clave y visualizaciones para análisis y toma de decisiones.
+
+---
+
+## Tabla de Indicadores
+
+```{r resumen-tabla, echo=FALSE}
+library(dplyr)
+library(knitr)
+library(readr)
+spotify <- read_csv("Spotify2024_clean.csv", show_col_types = FALSE)
+
+resumen <- spotify %>%
+  summarise(
+    Total_Canciones           = dplyr::n_distinct(cancion),
+    Total_Artistas            = dplyr::n_distinct(artista),
+    Promedio_Streams_Spotify  = mean(spotify_streams, na.rm = TRUE),
+    Max_Streams_Spotify       = max(spotify_streams, na.rm = TRUE),
+    Popularidad_Spotify_media = mean(spotify_pop, na.rm = TRUE),
+    Vistas_YT_media           = mean(youtube_views, na.rm = TRUE),
+    Vistas_TikTok_media       = mean(tiktok_views, na.rm = TRUE)
+  )
+
+kable(resumen)
+```
+
+---
+
+## Gráfico Principal
+
+```{r grafico-principal, echo=FALSE, fig.width=7, fig.height=5}
+library(ggplot2)
+ggplot(spotify, aes(x = spotify_streams, y = youtube_views)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Relación entre Streams en Spotify y Vistas en YouTube",
+       x = "Streams en Spotify",
+       y = "Vistas en YouTube") +
+  theme_minimal()
+```
+
+---
+
+## Interpretación del Modelo
+
+```{r modelo-simple, echo=FALSE}
+modelo <- lm(youtube_views ~ spotify_streams, data = spotify)
+coef_spotify <- signif(coef(modelo)['spotify_streams'], 4)
+r2 <- signif(summary(modelo)$r.squared, 4)
+```
+
+- Por cada unidad adicional de streams en Spotify, las vistas en YouTube aumentan aproximadamente `r coef_spotify` unidades.
+- El modelo explica el `r2` de la variabilidad total.
+
+---
+
+## Conclusiones
+
+- Se identificaron patrones de consumo coherentes entre Spotify y YouTube.
+- El modelo simple ayuda a cuantificar esta relación.
+- El análisis respalda los objetivos del proyecto.
