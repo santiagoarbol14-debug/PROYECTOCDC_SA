@@ -11,11 +11,11 @@
 ## Estructura del repositorio
 
 spotify_trends_2024/
-│── data/ # Bases de datos (ej: Spotify2024.xlsx)
-│── scripts/ # Scripts de limpieza, análisis y visualización
-│── reports/ # Informes knitr, RMarkdown
-│── presentations/ # Presentación final del reto
-│── README.md # Descripción general del proyecto
+│── datos
+│── Dashboard
+│── Informe/
+│── presentación/
+│── README.md
 
 
 ##  Tecnologías
