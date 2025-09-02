@@ -11,11 +11,11 @@
 ## Estructura del repositorio
 
 spotify_trends_2024/
-│── datos
-│── Dashboard
-│── Informe/
-│── presentación/
-│── README.md
+- datos
+- Dashboard
+- Informe
+- presentación
+- README.md
 
 
 ##  Tecnologías
