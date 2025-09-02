@@ -10,8 +10,8 @@
 
 ## Estructura del repositorio
 
-spotify_trends_2024/
-- datos
+spotify_trends_2024:
+- Datos
 - Dashboard
 - Informe
 - presentación
